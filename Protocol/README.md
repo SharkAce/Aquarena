@@ -86,7 +86,7 @@ Note that the `bytes` type in protobuf is represented as a `std::string` in C++ 
 #### TCP:
 
 - **TcpWrapper**
-  - Description: Prefixes a TCP message with an enum representing its type and the payload size.
+  - Description: Prefixes a TCP message with an enum representing its type.
   - Fields:
     - `payload_type` (enum):
       | MessageType        | int |
@@ -102,7 +102,7 @@ Note that the `bytes` type in protobuf is represented as a `std::string` in C++ 
 #### UDP:
 
 - **UdpWrapper**
-  - Description: Prefixes a UDP message with an enum representing its type and the payload size.
+  - Description: Prefixes a UDP message with an enum representing its type.
   - Fields:
     - `payload_type` (enum):
       | MessageType         | int |
