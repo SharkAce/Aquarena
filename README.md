@@ -9,7 +9,8 @@ The game client is made using the C++ language in an OOP style wih the multimedi
 ### Prerequisites
 - C++ compiler (such as g++) installed
 - Make
-- SFML
+- sfml
+- protobuf
 
 ### Compilation
 ```bash
