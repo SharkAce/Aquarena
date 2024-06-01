@@ -1,0 +1,30 @@
+#ifndef %%INCLUDE-GUARD%%_HPP
+#define %%INCLUDE-GUARD%%_HPP
+
+#include "../UI.hpp"
+
+namespace UI {
+class %%NAME%% : public Base::UI{
+
+public:
+	%%NAME%%();
+	
+	void setText(std::string text) {
+		this->sf_text.setString(text);
+	}
+	std::string getText() const {
+		return sf_text.getString();
+	}
+
+	virtual void render(Context::Render) override;
+	virtual void loadResources(Context::Resource) override;
+
+private:
+	sf::RectangleShape background;
+
+protected:
+	virtual void refreshDrawables() override;
+};
+}
+
+#endif

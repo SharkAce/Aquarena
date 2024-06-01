@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package ServerResponse.UDP;
+
+message ActionResponse {
+	bool success = 1;
+}
+
+message GameStateResponse {
+	message Player {
+		string username = 1;
+		int32 position_x = 2;
+		int32 position_y = 3;
+	}
+	message Coin {
+		int32 position_x = 1;
+		int32 position_y = 2;
+	}
+
+	repeated Player players = 1;
+	repeated Coin coins = 2;
+}

@@ -1,0 +1,22 @@
+#ifndef %%INCLUDE-GUARD%%_HPP
+#define %%INCLUDE-GUARD%%_HPP
+
+#include "../Scene.hpp"
+
+namespace Scene {
+
+class %%NAME%% : public Base::Scene {
+public:
+	%%NAME%%();
+	virtual void loadResources(Context::Resource) override;
+	virtual void update(Context::Update) override;
+	virtual void render(Context::Render) override;
+	virtual void handleEvent(Context::Event) override;
+
+private:
+	UI::TextField placeholder_UI;
+};
+
+}
+
+#endif

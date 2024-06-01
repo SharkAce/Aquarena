@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package ClientRequest.UDP;
+
+message GameStateRequest {
+	bytes match_id = 1;
+}
+
+message ActionRequest {
+	bytes session_id = 1;
+	bytes match_id = 2;
+	int32 target_x = 3;
+	int32 target_y = 4;
+}

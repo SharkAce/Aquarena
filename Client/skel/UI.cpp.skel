@@ -1,0 +1,23 @@
+#include "%%NAME%%.hpp"
+
+namespace UI{
+
+%%NAME%%::%%NAME%%(){
+	background = sf::RectangleShape();
+	refreshDrawables();
+}
+
+void %%NAME%%::refreshDrawables(){
+	auto bounds = getBounds();
+	background.setPosition(bounds.left, bounds.top);
+	background.setSize(sf::Vector2f(bounds.width, bounds.height));
+}
+
+void %%NAME%%::loadResources(Context::Resource context){
+}
+
+void %%NAME%%::render(Context::Render context){
+	context.window.draw(background);
+}
+
+}

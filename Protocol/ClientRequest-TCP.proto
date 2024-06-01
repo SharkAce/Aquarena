@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package ClientRequest.TCP;
+
+message LoginRequest {
+	string username = 1;
+	optional bytes password = 2;
+}
+
+message FindMatchRequest {
+	bytes session_id = 1;
+}
+
+message ChatMessageRequest {
+	bytes session_id = 1;
+	string chat_message = 2;
+}

@@ -1,0 +1,27 @@
+#include "%%NAME%%.hpp"
+
+namespace Scene {
+
+%%NAME%%::%%NAME%%() {
+	placeholder_UI.setPosition(30, 30);
+	placeholder_UI.setSize(100,40);
+	addUIElement(placeholder_UI);
+}
+
+void %%NAME%%::update(Context::Update context){
+	Base::Scene::update(context);
+}
+
+void %%NAME%%::render(Context::Render context){
+	Base::Scene::render(context);
+}
+
+void %%NAME%%::loadResources(Context::Resource context){
+	Base::Scene::loadResources(context);
+}
+
+void %%NAME%%::handleEvent(Context::Event context){
+	Base::Scene::handleEvent(context);
+}
+
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ServerResponse.TCP;
+
+message LoginResponse {
+	bool success = 1;
+	optional bytes session_id = 2;
+}
+
+message FindMatchResponse {
+	bool success = 1;
+	optional bytes match_id = 2;
+}

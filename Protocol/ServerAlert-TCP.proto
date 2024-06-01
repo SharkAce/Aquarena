@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ServerAlert.TCP;
+
+message ShareChatMessage {
+	string username = 1;
+	string chat_message = 2;
+}
+
+message EndMatch {
+	enum GameOutcome {
+		Lost = 0;
+		Won = 1;
+		Draw = 2;
+	}
+
+	GameOutcome outcome = 1;
+}

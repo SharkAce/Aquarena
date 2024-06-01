@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/src/main.js",
+    "build-ts": "tsc",
+		"build-proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./proto --proto_path=../Protocol/ ../Protocol/*.proto"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/uuid": "^9.0.8",
+    "protobufjs": "^7.3.0",
+    "ts-proto": "^1.176.1",
+    "ts-protoc-gen": "^0.15.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1"
+  }
+}

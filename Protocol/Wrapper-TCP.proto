@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package Wrapper.TCP;
+
+message TcpWrapper {
+  enum MessageType {
+    LoginRequest = 0;
+    LoginResponse = 1;
+		FindMatchRequest = 2;
+		FindMatchResponse = 3;
+		ChatMessageRequest = 4;
+		ShareChatMessage = 5;
+  }
+
+  MessageType payload_type = 1;
+  bytes payload = 2;
+}
