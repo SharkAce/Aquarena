@@ -48,7 +48,7 @@ clean:
 run:
 	$(BUILD_DIR)/$(EXEC)
 
-generateClass:
+generate_class:
 	@if [ -z "$(hpp_sf)" ] || [ -z "$(cpp_sf)" ] || [ -z "$(out_dir)" ] || [ -z "$(name)" ]; then \
 		echo "Usage example: make generate_class hpp_sf=skel/Scene.hpp.skel cpp_sf=skel/Scene.cpp.skel out_dir=src/Scene/Game/ name=Game"; \
 		exit 1; \
