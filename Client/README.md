@@ -44,16 +44,16 @@ Data needed globally is initialized in the Core::App class and flows through the
         - `cursor_location` (sf::Vector2i): The location of the cursor on the screen.
 
 ## <a id="Inheriting-From-Base"> Inheriting from the Base:: namespace
-Each member of the Base:: namespace has a template file in the `skel/` directory defining how it should be inherited. These template files can be generated into headers using the `generateClass` task.
+Each member of the Base:: namespace has a template file in the `skel/` directory defining how it should be inherited. These template files can be generated into headers using the `generate_class` task.
 
 ### Syntax:
 To generate a class header from a template file, use the the following syntax:
 
 ```bash
-make generateClass hpp_sf=<hpp_template_file> cpp_sf=<cpp_template_file> out_dir=<output_location> name=<name>
+make generate_class hpp_sf=<hpp_template_file> cpp_sf=<cpp_template_file> out_dir=<output_location> name=<name>
 ```
 
 ### Example:
 
 ```bash
-make generateClass hpp_sf=skel/Scene.hpp.skel cpp_sf=skel/Scene.cpp.skel out_dir=src/Scene/Game/ name=Game
+make generate_class hpp_sf=skel/Scene.hpp.skel cpp_sf=skel/Scene.cpp.skel out_dir=src/Scene/Game/ name=Game
