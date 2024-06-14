@@ -4,7 +4,7 @@
 Aquarena is an open source multiplayer game in development using a C++ frontend with a custom TypeScript backend.
 
 ## Client
-The game client is made using the C++ language in an OOP style wih the multimedia library SFML [(see here)](https://sfml-dev.org).
+The game client is made using the C++ language wih the multimedia library SFML [(see here)](https://sfml-dev.org).
 
 ### Prerequisites
 - C++ compiler (such as g++) installed
