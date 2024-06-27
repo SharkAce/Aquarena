@@ -7,29 +7,13 @@ void UI::handleEvent(Context::Event context) {
 
 	bool cursor_on_ui = bounds.contains((sf::Vector2f)context.cursor_location);
 
-	if (is_focused){
-		if (!cursor_on_ui) {
-			is_focused = false;
-		}
-	} else {
-		if (cursor_on_ui) {
-			is_focused = true;
-		}
-	}
+	is_focused = cursor_on_ui;
 }
 
 void UI::update(Context::Update context) {
 	bool cursor_on_ui = bounds.contains((sf::Vector2f)context.cursor_location);
 
-	if (is_hovered){
-		if (!cursor_on_ui) {
-			is_hovered = false;
-		}
-	} else {
-		if (cursor_on_ui) {
-			is_hovered = true;
-		}
-	}
+	is_hovered = cursor_on_ui;
 }
 
 }
