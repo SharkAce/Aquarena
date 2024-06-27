@@ -1,28 +1,26 @@
 # Server
-The game server is made using TypeScript in a NodsJS envirement, it handles communication by UDP and TCP sockets.
+The server uses TypeScript in a NodsJS envirement, it handles communication by UDP and TCP sockets.
 
 ## Prerequisites
-- NodsJS
+- nodejs
+- npm
 - tsc
 
 ## Installation
 ```bash
 cd Server
 npm install
+npm run build
 ```
 or
 ```bash
 cd Server
 npm install --include dev
+npm run build-proto
+npm run build-ts
 ```
 
 ## Usage
 ```bash
 npm run start
-```
-
-## Compilation
-```bash
-npm run build-proto
-npm run build-ts
 ```

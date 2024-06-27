@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/src/main.js",
-    "build-ts": "tsc",
-		"build-proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./proto --proto_path=../Protocol/ ../Protocol/*.proto"
+    "build": "npm run build-proto && npm run build-ts",
+    "build-proto": "mkdir -p proto && protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./proto --proto_path=../Protocol/ ../Protocol/*.proto",
+    "build-ts": "tsc"
   },
   "keywords": [],
   "author": "",
