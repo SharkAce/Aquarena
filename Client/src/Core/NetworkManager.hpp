@@ -63,6 +63,7 @@ private:
 	std::string match_id = "";
 	bool session_active = false;
 	bool match_active = false;
+	bool connected = false;
 
 	void handleIncomingTcpData();
 

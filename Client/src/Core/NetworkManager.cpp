@@ -6,16 +6,20 @@ namespace Core {
 NetworkManager::NetworkManager(Logger& logger)
 	: logger(logger) {
 	udp_socket.bind(sf::Socket::AnyPort);
-	tcp_socket.setBlocking(false);
 }
 
 bool NetworkManager::connectToTcpServer(const sf::IpAddress& server_address) {
 
-	if (tcp_socket.connect(server_address, SERVER_TCP_PORT) == sf::Socket::Done) {
+	tcp_socket.setBlocking(true);
+	sf::Socket::Status status = tcp_socket.connect(server_address, SERVER_TCP_PORT, sf::seconds(1));
+	if (status == sf::Socket::Done) {
+		logger.info("Conected to the tcp server.");
 		this->server_address = server_address;
+		connected = true;
 		return true;
 	}
 
+	logger.error("Error connecting to the tcp server.");
 	return false;
 }
 
@@ -33,6 +37,10 @@ void NetworkManager::update() {
 }
 
 void NetworkManager::handleIncomingTcpData() {
+	if (!connected) return;
+
+	tcp_socket.setBlocking(false);
+
 	char data[1024];
 	std::size_t received_size;
 	TcpWrapper wrapper;
@@ -104,6 +112,13 @@ void NetworkManager::receiveChatMessage(const ServerAlert::TCP::ShareChatMessage
 }
 
 bool NetworkManager::sendTcpMessage(const std::string& message, TcpWrapper::MessageType type) {
+	if (!connected){
+		logger.error("Not connected to a tcp server.");
+		return false;
+	}
+
+	tcp_socket.setBlocking(true);
+
 	// Create and populate the wrapper
 	TcpWrapper wrapper;
 	wrapper.set_payload_type(type);
