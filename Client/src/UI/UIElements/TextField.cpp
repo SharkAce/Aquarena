@@ -35,10 +35,14 @@ void TextField::handleEvent(Context::Event context) {
 
 	if (context.event.type == sf::Event::TextEntered && getFocused()){
 		std::string new_text = getInputText();
+		context.logger.debug(std::to_string(context.event.text.unicode));
 
-		if (context.event.text.unicode == 8 && !new_text.empty()){
-			new_text.pop_back();
-		} else {
+		// 8 = Backspace; 13 = Enter; 27 = Delete; 127 = Escape;
+		unsigned int unicode = context.event.text.unicode;
+
+		if (unicode == 8){
+			if (!new_text.empty()) new_text.pop_back();
+		} else if (unicode != 13 && unicode != 27 && unicode != 127){
 			new_text.push_back((char)context.event.text.unicode);
 		}
 		setInputText(new_text);
