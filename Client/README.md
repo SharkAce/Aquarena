@@ -1,7 +1,7 @@
 # Game Client Specifications
 
 ## Preface
-The client is made using the C++ language in an OOP style wih the multimedia library SFML [(see here)](https://sfml-dev.org).
+The client is made using the C++ language with the multimedia library SFML [(see here)](https://sfml-dev.org).
 
 ## <a id="Namespaces"></a> Namespaces
 | Name        | Role                                                |
