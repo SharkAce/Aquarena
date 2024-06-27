@@ -3,13 +3,13 @@ syntax = "proto3";
 package Wrapper.UDP;
 
 message UdpWrapper {
-  enum MessageType {
+	enum MessageType {
 		GameStateRequest = 0;
 		GameStateResponse = 1;
 		ActionRequest = 2;
 		ActionResponse = 3;
-  }
+	}
 
-  MessageType payload_type = 1;
-  bytes payload = 2;
+	MessageType payload_type = 1;
+	bytes payload = 2;
 }

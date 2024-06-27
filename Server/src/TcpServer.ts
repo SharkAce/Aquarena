@@ -9,30 +9,30 @@ import { LoginRequest, FindMatchRequest, ChatMessageRequest } from '../proto/Cli
 import { FindMatchResponse, LoginResponse } from '../proto/ServerResponse-TCP';
 
 export class TcpServer {
-  private port: number;
-  private server: net.Server;
-  private udpServer: UdpServer;
+	private port: number;
+	private server: net.Server;
+	private udpServer: UdpServer;
 	private logger: Logger;
 
-  constructor(port: number, udpServer: UdpServer) {
-    this.port = port;
-    this.udpServer = udpServer;
-    this.server = net.createServer(this.handleConnection.bind(this));
+	constructor(port: number, udpServer: UdpServer) {
+		this.port = port;
+		this.udpServer = udpServer;
+		this.server = net.createServer(this.handleConnection.bind(this));
 		this.logger = new Logger("TCP");
-  }
+	}
 
-  public start() {
-    this.server.listen(this.port, () => {
-      this.logger.logInfo(`Server listening on port: ${this.port}`);
-    });
-  }
+	public start() {
+		this.server.listen(this.port, () => {
+			this.logger.logInfo(`Server listening on port: ${this.port}`);
+		});
+	}
 
 	public update() {
 		// This function will update messages and matchmaking queues in the future
 		return;
 	}
 
-	private sendMessageBuffer(socket: net.Socket, payload: Uint8Array, messageType: number){
+	private sendMessageBuffer(socket: net.Socket, payload: Uint8Array, messageType: number) {
 		try {
 			const wrapper: TcpWrapper = TcpWrapper.create({ payload: payload, payloadType: messageType });
 			if (socket.write(TcpWrapper.encode(wrapper).finish())){
@@ -45,22 +45,20 @@ export class TcpServer {
 		}
 	}
 
-  private handleConnection(socket: net.Socket) {
-    this.logger.logInfo('Client connected');
+	private handleConnection(socket: net.Socket) {
+		this.logger.logInfo('Client connected');
 
 		socket.on('data', this.handleData.bind(this, socket));
-    socket.on('error', this.handleError.bind(this));
+		socket.on('error', this.handleError.bind(this));
 		socket.on('end', this.handleEnd.bind(this));
+	}
 
-  }
-
-  private handleError(error: Error) {
+	private handleError(error: Error) {
 		this.logger.logError("Server error", error);
-  }
+	}
 
 	private handleEnd() {
 		this.logger.logInfo('Client disconnected')
-	
 	}
 
 	private handleData(socket: net.Socket, data: Buffer) {
@@ -68,7 +66,7 @@ export class TcpServer {
 			const wrapper: TcpWrapper = TcpWrapper.decode(data);
 
 
-			switch(wrapper.payloadType){
+			switch(wrapper.payloadType) {
 				case MessageType.LoginRequest:
 					this.logger.logInfo('Received packet of type LoginRequest');
 					this.handleLoginRequest(socket, LoginRequest.decode(wrapper.payload));
@@ -78,18 +76,18 @@ export class TcpServer {
 					this.logger.logInfo('Received packet of type FindMatchRequest');
 					this.handleFindMatchRequest(socket, FindMatchRequest.decode(wrapper.payload));
 					break;
-					
+
 				default:
 					this.logger.logError('Invalid enum MessageType');
 			}
 
-    } catch (error) {
+		} catch (error) {
 			this.logger.logError('Error decoding message', error);
-    }
+		}
 
 	}
 
-	private handleLoginRequest(socket: net.Socket, message: LoginRequest){
+	private handleLoginRequest(socket: net.Socket, message: LoginRequest) {
 		const session: ClientSession = new ClientSession(message.username);
 
 		// In the future this will check in a database for credentials
@@ -102,7 +100,7 @@ export class TcpServer {
 		this.sendMessageBuffer(socket, LoginResponse.encode(response).finish(), MessageType.LoginResponse);
 	}
 
-	private handleFindMatchRequest(socket: net.Socket, message: FindMatchRequest){
+	private handleFindMatchRequest(socket: net.Socket, message: FindMatchRequest) {
 		const response: FindMatchResponse = FindMatchResponse.create();
 
 		const match_id: string | null = this.udpServer.matchRequest(uuidStringify(message.sessionId));

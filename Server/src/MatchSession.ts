@@ -14,12 +14,12 @@ export class MatchSession {
 	private joinable: boolean;
 	private matchId: string;
 
-  constructor() {
+	constructor() {
 		this.players = new Map();
 		this.coins = new Array();
 		this.matchId = uuidv4();
 		this.joinable = true;
-  }
+	}
 
 	public update() {
 		this.players.forEach((player) => player.update());
@@ -43,12 +43,12 @@ export class MatchSession {
 		});
 	}
 
-	public addPlayer(clientSession: ClientSession){
+	public addPlayer(clientSession: ClientSession) {
 		const player: Player = new Player(clientSession.getUsername());
 		this.players.set(clientSession.getSessionId(), player);
 	}
 
-	public playerAction(sessionId: string, actionRequest: ActionRequest): ActionResponse{
+	public playerAction(sessionId: string, actionRequest: ActionRequest): ActionResponse {
 		let response: ActionResponse = ActionResponse.create({ success: false })
 		if (!this.players.has(sessionId)) return response;
 
@@ -68,7 +68,7 @@ class Player {
 	private speed: number;
 	private username: string;
 
-	constructor(username: string){
+	constructor(username: string) {
 		this.username  = username;
 		this.posX = 100;
 		this.posY = 100;
@@ -123,7 +123,7 @@ class Coin {
 	private posX: number;
 	private posY: number;
 
-	constructor(posX: number, posY: number){
+	constructor(posX: number, posY: number) {
 		this.posX = posX;
 		this.posY = posY;
 	}
@@ -132,7 +132,7 @@ class Coin {
 		return { posX: this.posX, posY: this.posY };
 	}
 
-	public getMessage(): CoinMessage{
+	public getMessage(): CoinMessage {
 		return CoinMessage.create({
 			positionX: this.posX,
 			positionY: this.posY
