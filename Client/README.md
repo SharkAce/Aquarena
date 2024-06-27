@@ -1,7 +1,27 @@
-# Game Client Specifications
+# Client
 
 ## Preface
 The client is made using the C++ language with the multimedia library SFML [(see here)](https://sfml-dev.org).
+
+### Prerequisites
+- C++ compiler compatibility for at least C++ 20
+- Make
+- sfml
+- protobuf
+
+### Compilation
+```bash
+cd Client
+make
+```
+### Usage
+```bash
+make run
+```
+or
+```bash
+make run log_level=DEBUG
+```
 
 ## <a id="Namespaces"></a> Namespaces
 | Name        | Role                                                |
