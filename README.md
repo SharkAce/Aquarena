@@ -1,54 +1,30 @@
 # Aquarena
 
 ## Preface
-Aquarena is an open source multiplayer game in development using a C++ frontend with a custom TypeScript backend.
+Aquarena is an open source multiplayer game in development it contains the code for a game with a client-server architecture. The project is divided into three main parts: the Client, the Server, and the Protocol. Each part is contained in its own directory with its own `README.md` file for more detailed information.
 
-## Client
-The game client is made using the C++ language wih the multimedia library SFML [(see here)](https://sfml-dev.org).
+## Project Structure
 
-### Prerequisites
-- C++ compiler (such as g++) installed
-- Make
-- sfml
-- protobuf
+- **Client**: The client is developed in C++ using the SFML library. It handles the game's user interface and communicates with the server to synchronize the game state.
+- **Server**: The server is implemented in TypeScript and runs in a Node.js environment. It manages game logic, player interactions, and maintains the game state.
+- **Protocol**: This part contains Protocol Buffers (`.proto` files) that define the communication protocol between the client and server.
 
-### Compilation
-```bash
-cd Client
-make
-```
-### Usage
-```bash
-make run
-```
-## Server
-The game server is made using TypeScript in a NodsJS envirement, it handles communication by UDP and TCP sockets.
+## Components
 
-### Prerequisites
-- NodsJS
-- tsc
+### [Client](./Client/README.md)
 
-### Installation
-```bash
-cd Server
-npm install
-```
-or
-```bash
-cd Server
-npm install --include dev
-```
+The Client handles the game's user interface and user input. It communicates with the server to send and receive game state updates. The client is built using the SFML library.
 
-### Usage
-```bash
-npm run start
-```
+For more information, see the [Client README](./Client/README.md).
 
-### Compilation
-```bash
-npm run build-proto
-npm run build-ts
-```
+### [Server](./Server/README.md)
 
-## Networking
-The communication between the client and the server is made using a combination of UDP and TCP with the data being serialized as Protocol Buffers [see here](https://protobuf.dev/). To learn more about the structure and implementation of the Protocol Buffers read the `Protocol/README.md` file.
+The Server is responsible for managing the game state and handling player interactions. It is built using TypeScript and runs in a Node.js environment. The server ensures that all players have a consistent view of the game.
+
+For more information, see the [Server README](./Server/README.md).
+
+### [Protocol](./Protocol/README.md)
+
+The Protocol directory contains Protocol Buffers files (`.proto` files) that define the messages exchanged between the client and server. These files ensure that the communication between the client and server is efficient and reliable.
+
+For more information, see the [Protocol README](./Protocol/README.md).
