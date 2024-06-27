@@ -46,7 +46,7 @@ clean:
 	rm -f $(PROTO_GENERATED_CC) $(PROTO_GENERATED_H) $(PROTO_OBJECTS)
 
 run:
-	$(BUILD_DIR)/$(EXEC)
+	$(BUILD_DIR)/$(EXEC) $(log_level)
 
 generate_class:
 	@if [ -z "$(hpp_sf)" ] || [ -z "$(cpp_sf)" ] || [ -z "$(out_dir)" ] || [ -z "$(name)" ]; then \
