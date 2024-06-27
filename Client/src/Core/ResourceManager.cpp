@@ -2,7 +2,7 @@
 
 namespace Core {
 
-ResourceManager::ResourceManager(Logger::ResourceManager& logger)
+ResourceManager::ResourceManager(Logger& logger)
 	: logger(logger) {
 	return;
 }
@@ -10,7 +10,7 @@ ResourceManager::ResourceManager(Logger::ResourceManager& logger)
 template<>
 sf::Texture& ResourceManager::get<sf::Texture>(const std::string& filename) {
 	if (textures.find(filename) == textures.end()){
-		logger.log(Log::Type::warning, "Texture key " + filename + " not found, loading from file...");
+		logger.warning("Texture key " + filename + " not found, loading from file...");
 		textures.insert({filename, std::make_unique<sf::Texture>()});
 		textures[filename]->loadFromFile(filename);
 	}
@@ -20,7 +20,7 @@ sf::Texture& ResourceManager::get<sf::Texture>(const std::string& filename) {
 template<>
 sf::SoundBuffer& ResourceManager::get<sf::SoundBuffer>(const std::string& filename) {
 	if (sound_buffers.find(filename) == sound_buffers.end()){
-		logger.log(Log::Type::warning, "Sound buffer key " + filename + " not found, loading from file...");
+		logger.warning("Sound buffer key " + filename + " not found, loading from file...");
 		sound_buffers.insert({filename, std::make_unique<sf::SoundBuffer>()});
 		sound_buffers[filename]->loadFromFile(filename);
 	}
@@ -30,7 +30,7 @@ sf::SoundBuffer& ResourceManager::get<sf::SoundBuffer>(const std::string& filena
 template<>
 sf::Font& ResourceManager::get<sf::Font>(const std::string& filename) {
 	if (fonts.find(filename) == fonts.end()){
-		logger.log(Log::Type::warning, "Font key " + filename + " not found, loading from file...");
+		logger.warning("Font key " + filename + " not found, loading from file...");
 		fonts.insert({filename, std::make_unique<sf::Font>()});
 		fonts[filename]->loadFromFile(filename);
 	}
@@ -39,19 +39,19 @@ sf::Font& ResourceManager::get<sf::Font>(const std::string& filename) {
 
 template<>
 void ResourceManager::free<sf::Texture>(const std::string& filename) {
-	logger.log(Log::Type::info, "Freeing Texture " + filename + ".");
+	logger.info("Freeing Texture " + filename + ".");
 	textures.erase(filename);
 }
 
 template<>
 void ResourceManager::free<sf::SoundBuffer>(const std::string& filename) {
-	logger.log(Log::Type::info, "Freeing SoundBuffer " + filename + ".");
+	logger.info("Freeing SoundBuffer " + filename + ".");
 	sound_buffers.erase(filename);
 }
 
 template<>
 void ResourceManager::free<sf::Font>(const std::string& filename) {
-	logger.log(Log::Type::info, "Freeing Font " + filename + ".");
+	logger.info("Freeing Font " + filename + ".");
 	fonts.erase(filename);
 }
 

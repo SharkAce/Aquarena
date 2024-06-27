@@ -6,7 +6,7 @@
 #include <queue>
 #include <optional>
 
-#include "../Logger/Logger.hpp"
+#include "Logger.hpp"
 
 #include "../../proto/ClientRequest-TCP.pb.h"
 #include "../../proto/ClientRequest-UDP.pb.h"
@@ -26,8 +26,8 @@ namespace Core {
 
 class NetworkManager {
 public:
-	NetworkManager(Logger::NetworkManager&);
-	~NetworkManager();
+	NetworkManager(Logger&);
+	virtual ~NetworkManager() = default;
 
 	void update();
 
@@ -52,7 +52,7 @@ public:
 	}
 
 private:
-	Logger::NetworkManager& logger;
+	Logger& logger;
 
 	sf::TcpSocket tcp_socket;
 	sf::UdpSocket udp_socket;

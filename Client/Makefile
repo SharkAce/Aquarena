@@ -7,7 +7,7 @@ PROTO_GENERATED_DIR := proto
 
 LIBRARIES := $(shell pkg-config --cflags --libs sfml-window sfml-graphics sfml-audio sfml-network protobuf)
 
-OPTIONS := -Wall -O3
+OPTIONS := -std=c++20 -O3
 
 SOURCES := $(shell find $(SRC_DIR) -name '*.cpp')
 PROTO_SOURCES := $(shell find $(PROTO_DIR) -name '*.proto')
@@ -35,7 +35,7 @@ $(PROTO_GENERATED_DIR)/%.pb.o: $(PROTO_GENERATED_DIR)/%.pb.cc
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
-	$(CXX) -MMD -MP -c $< -o $@
+	$(CXX) $(OPTIONS) -MMD -MP -c $< -o $@
 
 -include $(DEPENDS)
 

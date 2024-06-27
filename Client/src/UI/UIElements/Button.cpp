@@ -31,7 +31,7 @@ void Button::handleEvent(Context::Event context) {
 	Base::UI::handleEvent(context);
 
 	if (context.event.type == sf::Event::MouseButtonPressed && getHovered()) {
-		context.logger.log(Log::Type::info, "Button", "Got clicked.");
+		context.logger.info("Got clicked.");
 		on_click(context);	
 	}
 }

@@ -8,13 +8,13 @@
 #include <memory>
 #include <stdexcept>
 
-#include "../Logger/Logger.hpp"
+#include "Logger.hpp"
 
 namespace Core {
 
 class ResourceManager {
 public:
-	ResourceManager(Logger::ResourceManager&);
+	ResourceManager(Logger&);
 
 	template<typename T>
 	T& get(const std::string& filename);
@@ -23,7 +23,7 @@ public:
 	void free(const std::string& filename);
 
 private:
-	Logger::ResourceManager& logger;
+	Logger& logger;
 	std::unordered_map<std::string, std::unique_ptr<sf::Texture>> textures;
 	std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>> sound_buffers;
 	std::unordered_map<std::string, std::unique_ptr<sf::Font>> fonts;

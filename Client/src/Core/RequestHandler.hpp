@@ -6,7 +6,7 @@
 #include <string>
 #include <variant>
 
-#include "../Logger/Logger.hpp"
+#include "Logger.hpp"
 
 namespace Core {
 
@@ -16,7 +16,7 @@ class RequestHandler {
 friend class App;
 
 public:
-	RequestHandler(Logger::RequestHandler&);
+	RequestHandler(Logger&);
 
 	void requestSceneChange(const std::string& scene_name);
 
@@ -39,7 +39,7 @@ protected:
 	bool processRequest(Request&);
 
 private:
-	Logger::RequestHandler& logger;
+	Logger& logger;
 
 	std::queue<Request> requests;
 
