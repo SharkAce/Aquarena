@@ -3,16 +3,20 @@
 
 namespace Core {
 
-App::App() 
+App::App(const std::string& log_level) 
 	: window(sf::VideoMode::getDesktopMode(), "Aquarena", sf::Style::Fullscreen),
-	log_settings(Log::default_settings),
-	loggers(window, log_settings),
-	network_manager(loggers.network_manager),
-	resource_manager(loggers.resource_manager),
-	request_handler(loggers.request_handler){
+
+	logger(log_level),
+	network_manager(this->logger),
+	resource_manager(this->logger),
+	request_handler(this->logger){
 
 	registerScene("ServerLogin", []() {return std::make_unique<Scene::ServerLogin>();});
 	registerScene("Game", []() {return std::make_unique<Scene::Game>();});
+}
+
+App::~App() {
+	network_manager.disconnectFromServer();
 }
 
 void App::update() {
@@ -24,7 +28,7 @@ void App::update() {
 		.network_manager = network_manager,
 		.delta_time = delta_time,
 		.cursor_location = cursor_location,
-		.logger = loggers.update
+		.logger = logger
 	};
 
 	if (current_scene) {
@@ -58,7 +62,7 @@ void App::render() {
 	Context::Render context {
 		.window = window,
 		.resource_manager = resource_manager,
-		.logger = loggers.render
+		.logger = logger
 	};
 
 	if (current_scene) {
@@ -79,7 +83,7 @@ void App::handleEvent(sf::Event& event) {
 		.network_manager = network_manager,
 		.event = event,
 		.cursor_location = cursor_location,
-		.logger = loggers.event
+		.logger = logger
 	};
 
 	switch (event.type) {
@@ -105,7 +109,7 @@ void App::setCurrentScene(const std::string& name) {
 	current_scene = it->second();
 	Context::Resource context {
 		.resource_manager = resource_manager,
-		.logger = loggers.resource
+		.logger = logger
 	};
 	current_scene->loadResources(context);
 }

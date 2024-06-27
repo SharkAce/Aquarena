@@ -27,7 +27,7 @@ void Game::render(Context::Render context){
 	drawGrid(context);
 
 	if (game_state.players_size() == 0){
-		context.logger.log(Log::Type::warning, "Game", "No players in the game state.");
+		context.logger.warning("No players in the game state.");
 	}
 
 	for (int i = 0; i < game_state.players_size(); i++){

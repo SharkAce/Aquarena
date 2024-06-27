@@ -12,7 +12,7 @@
 #include "ResourceManager.hpp"
 #include "RequestHandler.hpp"
 #include "NetworkManager.hpp"
-#include "../Logger/Logger.hpp"
+#include "Logger.hpp"
 #include "../Scene/include.hpp"
 
 namespace Core {
@@ -20,8 +20,8 @@ namespace Core {
 class App {
 
 public:
-	App();
-	virtual ~App() = default;
+	App(const std::string& log_level);
+	~App();
 	void update();
 	void render();
 	void start();
@@ -35,9 +35,7 @@ private:
 	Core::ResourceManager resource_manager;
 	Core::RequestHandler request_handler;
 	Core::NetworkManager network_manager;
-
-	Log::Settings log_settings;
-	Log::Loggers loggers;
+	Core::Logger logger;
 
 	float delta_time;
 	sf::Vector2i cursor_location;

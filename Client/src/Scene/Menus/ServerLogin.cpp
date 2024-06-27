@@ -25,7 +25,7 @@ void ServerLogin::update(Context::Update context) {
 
 	if (context.network_manager.isSessionActive() && !match_request_sent) {
 		match_request_sent = true;
-		context.logger.log(Log::Type::info, "ServerLogin", "Sending a find_match request.");
+		context.logger.info("Sending a find_match request.");
 		context.network_manager.sendFindMatchRequest();
 	}
 
@@ -51,7 +51,7 @@ void ServerLogin::connect(Context::Event context) {
 	context.network_manager.connectToTcpServer(server_address);
 
 	std::string username = username_field.getInputText();
-	context.logger.log(Log::Type::info, "ServerLogin", "Sending a login request.");
+	context.logger.info("Sending a login request.");
 	context.network_manager.sendLoginRequest(username);
 }
 
