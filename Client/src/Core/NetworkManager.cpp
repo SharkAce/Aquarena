@@ -6,6 +6,7 @@ namespace Core {
 NetworkManager::NetworkManager(Logger& logger)
 	: logger(logger) {
 	udp_socket.bind(sf::Socket::AnyPort);
+	udp_selector.add(udp_socket);
 }
 
 bool NetworkManager::connectToTcpServer(const sf::IpAddress& server_address) {
@@ -160,8 +161,12 @@ bool NetworkManager::sendUdpMessage(const std::string& message, UdpWrapper::Mess
 	std::size_t received_size;
 	unsigned short port = SERVER_UDP_PORT;
 
-	// Blocking call! Should be on a Selector::wait to handle server disconnection without crashing.
-	udp_socket.receive(data, sizeof(data), received_size, server_address, port);
+	if (udp_selector.wait(sf::milliseconds(300))) {
+		udp_socket.receive(data, sizeof(data), received_size, server_address, port);
+	} else {
+		logger.warning("Udp response not received.");
+		return false;
+	}
 
 	if (!response.ParseFromArray(data, received_size)) {
 		logger.error("Failed to parse UDP message.");
@@ -205,6 +210,11 @@ bool NetworkManager::sendGameStateRequest(ServerResponse::UDP::GameStateResponse
 		return false;
 	}
 
+	if (wrapped_response.payload_type() != UdpWrapper::GameStateResponse) {
+		logger.error("Wrong response type.");
+		return false;
+	}
+
 	return true;
 }
 
@@ -218,6 +228,11 @@ bool NetworkManager::sendActionRequest(ClientRequest::UDP::ActionRequest request
 
 	UdpWrapper wrapped_response;
 	if (!sendUdpMessage(request.SerializeAsString(), UdpWrapper::ActionRequest, wrapped_response)) {
+		return false;
+	}
+
+	if (wrapped_response.payload_type() != UdpWrapper::ActionResponse) {
+		logger.error("Wrong response type.");
 		return false;
 	}
 

@@ -56,6 +56,7 @@ private:
 
 	sf::TcpSocket tcp_socket;
 	sf::UdpSocket udp_socket;
+	sf::SocketSelector udp_selector;
 	sf::IpAddress server_address = sf::IpAddress::None;
 
 	std::string username = "";

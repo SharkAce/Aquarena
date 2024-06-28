@@ -14,8 +14,11 @@ void Game::update(Context::Update context){
 		username = context.network_manager.getUsername();
 	}
 
-	if (game_state_clock.getElapsedTime().asMilliseconds() > 10){
-		context.network_manager.sendGameStateRequest(game_state);
+	if (game_state_clock.getElapsedTime().asMilliseconds() > 25){
+		GameState response;
+		if (context.network_manager.sendGameStateRequest(response)){
+			game_state = response;
+		}
 		game_state_clock.restart();
 	}
 }
