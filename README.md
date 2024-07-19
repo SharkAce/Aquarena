@@ -1,7 +1,7 @@
 # Aquarena
 
 ## Preface
-Aquarena is an open source multiplayer game in development it contains the code for a game with a client-server architecture. The project is divided into three main parts: the Client, the Server, and the Protocol. Each part is contained in its own directory with its own `README.md` file for more detailed information.
+Aquarena is an open source multiplayer game in development with a client-server architecture. The project is divided into three main parts: the Client, the Server, and the Protocol. Each part is contained in its own directory with its own `README.md` file for more detailed information.
 
 ## Project Structure
 
