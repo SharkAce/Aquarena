@@ -33,7 +33,9 @@ $(PROTO_GENERATED_DIR)/%.pb.cc $(PROTO_GENERATED_DIR)/%.pb.h: $(PROTO_DIR)/%.pro
 $(PROTO_GENERATED_DIR)/%.pb.o: $(PROTO_GENERATED_DIR)/%.pb.cc
 	$(CXX) -c $< -o $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+proto_objects: $(PROTO_OBJECTS)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp proto_objects
 	@mkdir -p $(dir $@)
 	$(CXX) $(OPTIONS) -MMD -MP -c $< -o $@
 
