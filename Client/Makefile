@@ -5,16 +5,16 @@ SRC_DIR := src
 PROTO_DIR := ../Protocol
 PROTO_GENERATED_DIR := proto
 
-LIBRARIES := $(shell pkg-config --cflags --libs sfml-window sfml-graphics sfml-audio sfml-network protobuf)
+LIBS := $(shell pkg-config --libs sfml-window sfml-graphics sfml-audio sfml-network protobuf)
+CXXFLAGS := $(shell pkg-config --cflags sfml-window sfml-graphics sfml-audio sfml-network)
+CXXFLAGS += -std=c++20 -O3 -DPROTOBUF_USE_DLLS -Wnon-virtual-dtor -DNOMINMAX
 
-OPTIONS := -std=c++20 -O3
-
-SOURCES := $(shell find $(SRC_DIR) -name '*.cpp')
 PROTO_SOURCES := $(shell find $(PROTO_DIR) -name '*.proto')
 PROTO_GENERATED_CC := $(PROTO_SOURCES:$(PROTO_DIR)/%.proto=$(PROTO_GENERATED_DIR)/%.pb.cc)
 PROTO_GENERATED_H := $(PROTO_SOURCES:$(PROTO_DIR)/%.proto=$(PROTO_GENERATED_DIR)/%.pb.h)
 PROTO_OBJECTS := $(PROTO_GENERATED_CC:$(PROTO_GENERATED_DIR)/%.pb.cc=$(PROTO_GENERATED_DIR)/%.pb.o)
 
+SOURCES := $(shell find $(SRC_DIR) -name '*.cpp')
 OBJECTS := $(SOURCES:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o) $(PROTO_OBJECTS)
 DEPENDS := $(SOURCES:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.d)
 
@@ -24,7 +24,7 @@ all: $(BUILD_DIR)/$(EXEC)
 
 $(BUILD_DIR)/$(EXEC): $(OBJECTS)
 	@mkdir -p $(BUILD_DIR)
-	$(CXX) $(OPTIONS) $^ -o $@ $(LIBRARIES)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LIBS)
 
 $(PROTO_GENERATED_DIR)/%.pb.cc $(PROTO_GENERATED_DIR)/%.pb.h: $(PROTO_DIR)/%.proto
 	@mkdir -p $(PROTO_GENERATED_DIR)
@@ -33,11 +33,9 @@ $(PROTO_GENERATED_DIR)/%.pb.cc $(PROTO_GENERATED_DIR)/%.pb.h: $(PROTO_DIR)/%.pro
 $(PROTO_GENERATED_DIR)/%.pb.o: $(PROTO_GENERATED_DIR)/%.pb.cc
 	$(CXX) -c $< -o $@
 
-proto_objects: $(PROTO_OBJECTS)
-
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp proto_objects
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(PROTO_OBJECTS)
 	@mkdir -p $(dir $@)
-	$(CXX) $(OPTIONS) -MMD -MP -c $< -o $@
+	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
 
 -include $(DEPENDS)
 
